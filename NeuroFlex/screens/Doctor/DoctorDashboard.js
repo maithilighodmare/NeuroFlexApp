@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // For icons
+import LayoutWithBottomNav from '../../navigation/LayoutWithBottomNav';
 
 const patients = [
   { id: "1", name: "Aashvi Tekade", email: "ashvi@gmail.com", age: 78, phone: "8888980e7" },
@@ -18,7 +19,9 @@ export default function DoctorDashboard({ navigation }) {
   );
 
   return (
+    
     <View style={styles.container}>
+      <LayoutWithBottomNav>
       {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Doctor dashboard</Text>
@@ -64,22 +67,13 @@ export default function DoctorDashboard({ navigation }) {
           </View>
         )}
       />
-
-      {/* BOTTOM NAVIGATION */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Ionicons name="home" size={30} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <Ionicons name="menu" size={30} color="white" />
-        </TouchableOpacity>
-      </View>
+     </LayoutWithBottomNav>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#201869", paddingTop: 40 },
+  container: { flex: 1, backgroundColor: "#201869", paddingTop: 40  },
   header: { flexDirection: "row", justifyContent: "space-between", paddingHorizontal: 20 },
   headerTitle: { fontSize: 18, fontWeight: "bold", color: "white" },
   doctorName: { color: "white", fontSize: 16, textAlign: "center", marginVertical: 10 },

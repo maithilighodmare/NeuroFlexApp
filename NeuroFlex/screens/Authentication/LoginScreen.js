@@ -1,9 +1,27 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Button, ScrollView } from "react-native";
+import { useUser } from "../../UserContext";  
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  // Get access to the setRole function from the context
+  const { setRole } = useUser();
+
+  // Function to handle login and set the role
+  const handleLogin = () => {
+    // You can replace this with actual login logic (checking credentials)
+    const isDoctor = email.includes("doctor");  // Just an example check based on email
+    
+    if (isDoctor) {
+      setRole("doctor");  // Set role to doctor if email contains "doctor"
+      navigation.navigate("Doctor");  // Navigate to the Doctor dashboard
+    } else {
+      setRole("patient");  // Set role to patient
+      navigation.navigate("Patient");  // Navigate to the Patient dashboard
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -33,25 +51,25 @@ export default function LoginScreen({ navigation }) {
       />
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.loginButtonText}>LOGIN</Text>
       </TouchableOpacity>
 
       {/* Links */}
       <View style={{ flexDirection: "row", marginTop: 10 }}>
-  <Text style={styles.linkText}>Already Have an Account? </Text>
-  <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-    <Text style={styles.signUp}>Sign Up</Text>
-  </TouchableOpacity>
-</View>
+        <Text style={styles.linkText}>Already Have an Account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+          <Text style={styles.signUp}>Sign Up</Text>
+        </TouchableOpacity>
+      </View>
 
       <Text style={styles.forgot}>Forgot Password?</Text>
 
       {/* Keep existing buttons */}
       <View style={{ marginTop: 30 }}>
         <Button title="Go to Signup" onPress={() => navigation.navigate("Signup")} />
-        <Button title="Go to Doctor Dashboard" onPress={() => navigation.navigate("Doctor")} />
-        <Button title="Go to Patient Dashboard" onPress={() => navigation.navigate("Patient")} />
+        <Button title="Go to Doctor Dashboard" onPress={() => navigation.navigate("DoctorDashboard")} />
+        <Button title="Go to Patient Dashboard" onPress={() => navigation.navigate("PatientDashboard")} />
       </View>
     </ScrollView>
   );

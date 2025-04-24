@@ -1,18 +1,9 @@
-// import { View, Text, Button } from "react-native";
 
-// export default function PatientDashboard({ navigation }) {
-//   return (
-//     <View>
-//       <Text>Patient Dashboard</Text>
-//       <Button title="View Records" onPress={() => navigation.navigate("PatientRecords")} />
-//       <Button title="Settings" onPress={() => navigation.navigate("PatientSettings")} />
-//       <Button title="Logout" onPress={() => navigation.navigate("Auth")} />
-//     </View>
-//   );
-// }
-import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ScrollView,TouchableOpacity } from "react-native";
 import { ProgressChart, BarChart } from "react-native-chart-kit";
 import { Ionicons, FontAwesome } from "@expo/vector-icons"; // Optional for icons
+import LayoutWithBottomNav from '../../navigation/LayoutWithBottomNav';
+
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -31,15 +22,17 @@ const patientData = {
 
 export default function PatientDashboard() {
   return (
+    <LayoutWithBottomNav>
     <ScrollView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.headerText}>PATIENT DASBOARD</Text>
-        <View style={styles.profileRow}>
-          <Text style={styles.name}>{patientData.name}</Text>
-          <FontAwesome name="user-circle" size={28} color="#fff" />
-        </View>
-      </View>
+  <Text style={styles.headerText}>PATIENT DASHBOARD</Text>
+  <TouchableOpacity style={styles.profileRow} onPress={() => navigation.navigate("PatientSettings")}>
+    <Text style={styles.name}>{patientData.name}</Text>
+    <FontAwesome name="user-circle" size={28} color="#fff" />
+  </TouchableOpacity>
+</View>
+
 
       {/* Vitals */}
       <View style={styles.vitals}>
@@ -107,14 +100,17 @@ export default function PatientDashboard() {
       <Text style={styles.motivational}>
         You're 80% close to achieving your weekly goal—{"\n"}Keep pushing!
       </Text>
-
+ 
       {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
+      {/* <View style={styles.bottomNav}>
         <Ionicons name="home" size={24} color="white" />
         <Ionicons name="person" size={24} color="white" />
         <Ionicons name="menu" size={24} color="white" />
-      </View>
+      </View> */}
+    
     </ScrollView>
+     </LayoutWithBottomNav>
+    
   );
 }
 
@@ -179,13 +175,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     fontStyle: "italic",
   },
-  bottomNav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 25,
-    paddingVertical: 15,
-    borderTopWidth: 1,
-    borderColor: "#444",
-  },
+ 
 });
 
